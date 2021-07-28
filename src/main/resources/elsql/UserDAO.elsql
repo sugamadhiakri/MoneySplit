@@ -1,0 +1,44 @@
+@NAME(userFields)
+    name, username, password, email
+
+@NAME(selectUser)
+    SELECT user_id, @INCLUDE(userFields)
+
+@NAME(userFrom)
+    FROM user
+
+@NAME(whereUserIdFilter)
+    @WHERE
+        @AND(:user_id)
+            user_id = :user_id
+
+@NAME(userFilters)
+    @WHERE
+        @AND(:userIds)
+            user_id IN (:user_ids)
+        @AND(:names)
+            name IN (:names)
+        @AND(:usernames)
+            username IN (:usernames)
+        @AND(:emails)
+            email IN (:emails)
+
+@NAME(createUser)
+    INSERT INTO user (@INCLUDE(userFields))
+    VALUES (:name, :username, :password, :email)
+
+@NAME(updateUser)
+    UPDATE user
+    SET name = :name, username = :username, password = :password, email = :email
+    @INCLUDE(whereUserIdFilter)
+
+@NAME(findUserById)
+    @INCLUDE(selectUser)
+    @INCLUDE(userFrom)
+    @INCLUDE(whereUserIdFilter)
+
+@NAME(getUser)
+    @INCLUDE(selectUser)
+    @INCLUDE(wherFrom)
+    @INCLUDE(userFilters)
+    
