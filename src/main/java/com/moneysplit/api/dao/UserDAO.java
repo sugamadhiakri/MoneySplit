@@ -43,6 +43,7 @@ public class UserDAO extends AbstractMySqlDAO {
                 .addValue("email", user.getEmail());
 
         jdbcTemplate.update(toSqlString("updateUser", params), params);
+
     }
 
     public Optional<User> findUserById(long id) {

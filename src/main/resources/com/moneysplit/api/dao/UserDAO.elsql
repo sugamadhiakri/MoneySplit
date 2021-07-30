@@ -29,13 +29,19 @@
 
 @NAME(updateUser)
     UPDATE user
-    SET name = :name, username = :username, password = :password, email = :email
+    SET 
+    name = :name, username = :username, password = :password, email = :email
     @INCLUDE(whereUserIdFilter)
 
 @NAME(findUserById)
     @INCLUDE(selectUser)
     @INCLUDE(userFrom)
     @INCLUDE(whereUserIdFilter)
+
+@NAME(deleteUserById)
+    DELETE from USER 
+    @INCLUDE(whereUserIdFilter)
+
 
 @NAME(getUser)
     @INCLUDE(selectUser)
