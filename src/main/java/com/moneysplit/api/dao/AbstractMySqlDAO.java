@@ -2,6 +2,7 @@ package com.moneysplit.api.dao;
 
 import static com.opengamma.elsql.ElSqlConfig.*;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.sql.DataSource;
@@ -15,7 +16,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
-public class AbstractMySqlDAO {
+public abstract class AbstractMySqlDAO {
 
     private final ElSqlBundle elSqlBundle;
     protected final NamedParameterJdbcTemplate jdbcTemplate;
@@ -45,6 +46,12 @@ public class AbstractMySqlDAO {
         } catch (DataAccessException dae) {
             return Optional.empty();
         }
+    }
+
+    protected <T extends BaseIdModel> List<T> findAll(String fragmentName, RowMapper<T> rowMapper) {
+
+        return jdbcTemplate.query(toSqlString(fragmentName), rowMapper);
+
     }
 
 }

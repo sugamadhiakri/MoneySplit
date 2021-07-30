@@ -39,6 +39,6 @@
 
 @NAME(getUser)
     @INCLUDE(selectUser)
-    @INCLUDE(wherFrom)
+    @INCLUDE(userFrom)
     @INCLUDE(userFilters)
     
